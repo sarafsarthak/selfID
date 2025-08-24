@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* 1) Design tokens via @theme (Tailwind v4) */
+@theme {
+  /* Brand colors */
+  --color-primary-50: #eef2ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1; /* main */
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary-950: #1e1b4b;
+
+  --color-secondary-500: #8b5cf6; /* main */
+  --color-accent-500: #06b6d4;    /* main */
+
+  /* Dark surfaces (slate-like) */
+  --color-dark-900: #0f172a; /* background */
+  --color-dark-800: #1e293b; /* surface */
+  --color-dark-700: #334155;
+  --color-dark-600: #475569;
+  --color-dark-400: #94a3b8;
+
+  /* Typography */
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Radii and shadows */
+  --radius-2\.5xl: 1.25rem;
+  --shadow-glow: 0 0 20px rgba(99,102,241,0.35);
+  --shadow-glow-lg: 0 0 40px rgba(99,102,241,0.45);
+  --shadow-glass: 0 8px 32px rgba(0,0,0,0.35);
+  --shadow-inset-soft: inset 0 0 20px rgba(99,102,241,0.12);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 60%, #06b6d4 100%);
+  --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  --radial-glow:
+    radial-gradient(circle at 25% 25%, rgba(99,102,241,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(8,145,178,0.12) 0%, transparent 50%);
+
+  /* Animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0) }
+    50% { transform: translateY(-16px) }
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: var(--shadow-glow) }
+    50% { box-shadow: var(--shadow-glow-lg) }
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+  }
+  @keyframes slideUp {
+    0% { transform: translateY(16px); opacity: 0 }
+    100% { transform: translateY(0); opacity: 1 }
+  }
+}
+
+/* 2) Base styles */
+@layer base {
+  html {
+    /* Class strategy for dark mode: add/remove "dark" on html */
+    font-family: var(--font-sans);
+  }
+  body {
+    background: var(--gradient-dark);
+    color: #f8fafc;
+  }
+
+  /* Smooth scrolling and better text rendering */
+  html { scroll-behavior: smooth; }
+}
+
+/* 3) Reusable utilities via @utility (Tailwind v4) */
+@utility glass {
+  background: rgba(30,41,59,0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-card {
+  @apply glass rounded-3xl;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold text-white transition-all duration-300 focus:outline-none;
+  background-image: var(--gradient-primary);
+  box-shadow: var(--shadow-glow);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow-lg); }
+.btn-primary:focus { outline: none; box-shadow: 0 0 0 6px rgba(99,102,241,0.2); }
+
+@utility btn-transparent {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold transition-all duration-300 focus:outline-none;
+  color: #f8fafc;
+  background: color-mix(in srgb, var(--color-primary-500) 10%, transparent);
+  border: 2px solid var(--color-primary-500);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-glow);
+}
+.btn-transparent:hover {
+  transform: translateY(-2px);
+  background: var(--color-primary-500);
+  border-color: var(--color-accent-500);
+}
+.btn-transparent:focus { box-shadow: 0 0 0 6px rgba(99,102,241,0.2); }
+
+@utility input-dark {
+  @apply w-full rounded-xl px-4 py-3 transition-all duration-300;
+  background: color-mix(in srgb, var(--color-dark-700) 40%, transparent);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #f8fafc;
+  backdrop-filter: blur(6px);
+  box-shadow: var(--shadow-inset-soft);
+}
+.input-dark::placeholder { color: #94a3b8; }
+.input-dark:focus {
+  outline: none;
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.25);
+}
+
+@utility label-dark {
+  @apply block text-sm font-medium mb-2;
+  color: #cbd5e1;
+}
+
+/* 4) Convenience helpers */
+@layer utilities {
+  .bg-app {
+    background: var(--gradient-dark);
+  }
+  .bg-radial-glow {
+    background-image: var(--radial-glow);
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.35s ease-out;
+  }
+}
