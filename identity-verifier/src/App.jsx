@@ -6,7 +6,7 @@ import RegisterVerifier from './Pages/RegisterVerifier'
 import LoginUser from './Pages/LoginUser'
 import LoginVerifier from './Pages/LoginVerifier'
 import UserdashBoard from './Pages/UserdashBoard'
-import VerifierdashBoard from './Pages/VerifierdashBoard'
+import VerifierDashboard from './Pages/VerifierdashBoard'
 import Navbar from './Pages/Navbar'
 
 
@@ -23,7 +23,7 @@ const App = () => {
       <Route path= '/verifier-login' element = {<LoginVerifier />} />
 
       <Route path = '/user-dashboard' element={<UserdashBoard />} />
-      <Route path = '/verifier-dashboard' element = {<VerifierdashBoard />} />
+      <Route path = '/verifier-dashboard' element = {<VerifierDashboard />} />
     </Routes>
 
 

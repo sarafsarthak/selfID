@@ -9,6 +9,7 @@ const LoginVerifier = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [item, setItem] = useState(null)
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -28,7 +29,7 @@ const LoginVerifier = () => {
 
     const data = await response.json()
     if(response.ok){
-
+      localStorage.setItem("token", data.token)
         navigate('/verifier-dashboard')
     } else{
         setError("Invalid email or password")
