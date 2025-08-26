@@ -11,21 +11,16 @@ const UserdashBoard = () => {
     let canceled = false;
 
     const run = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        if (!canceled) {
-          navigate("/user-login", { replace: true });
-        }
-        return;
-      }
+
+     
+       
 
       try {
         const response = await fetch("http://localhost:3000/user-dashboard", {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+          credentials: 'include'
+         
+        })
 
         if (!response.ok) {
           // Try to read server message
@@ -70,8 +65,9 @@ const UserdashBoard = () => {
     try {
       const response = await fetch("http://localhost:3000/download-credential", {
         method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+        credentials: "include"
+
+      })
 
       if (!response.ok) {
         let msg = "Failed to download credential";

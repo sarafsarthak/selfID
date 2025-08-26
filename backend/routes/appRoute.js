@@ -64,8 +64,13 @@ router.post('/user-login', async (req,res) => {
       process.env.SECRET_KEY,
       {expiresIn: "1h"}
     )
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Lax"
+    })
    
-    res.json({message: "Login successful", token})
+    res.json({message: "Login successful"})
 
   } catch (error) {
     res.status(404).json({message: error.message})
@@ -74,12 +79,13 @@ router.post('/user-login', async (req,res) => {
 
 router.get('/user-dashboard', auth,async (req,res) => {
   try {
+    const token = req.cookies.token
     const user = await User.findById(req.user.id).select("-password")
     if (!user) return res.status(404).json({ message: "User not found" });
     res.json({ user });    
     
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     res.status(500).json({ message: "Server error" });
   }
 })

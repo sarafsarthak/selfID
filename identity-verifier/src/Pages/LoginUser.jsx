@@ -24,11 +24,12 @@ const LoginUser = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
+      credentials: 'include'
     })
 
     const data = await response.json()
     if(response.ok){
-      localStorage.setItem("token", data.token)
+      console.log(response)
       navigate('/user-dashboard')
     }else{
       setSuccess("Invalid email or password")
