@@ -92,7 +92,7 @@ const VerifierDashboard = () => {
           }
     
           try {
-            const response = await fetch("http://localhost:3000/verifier-dashboard", {
+            const response = await fetch("https://render.com/docs/web-services?_gl=1*1j3qxvl*_gcl_au*MTM1MTM5MzAxMC4xNzU3MTgwMjQ2*_ga*Mjg5NDg2ODQ4LjE3NTcxODAyNDY.*_ga_QK9L9QJC5N*czE3NTcxODAyNDYkbzEkZzEkdDE3NTcxODEyMjQkajU5JGwwJGgw#port-binding/verifier-dashboard", {
               method: "GET",
               credentials: "include"
             })
