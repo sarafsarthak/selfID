@@ -4,13 +4,12 @@ const dotenv = require('dotenv')
 dotenv.config()  
 
 function auth(req, res, next) {
-  const token = req.header("Authorization").split(" ")[1]
+  const token = req.cookies?.token;
 
   if (!token) return res.status(401).json({ message: "Access denied" });
 
   try {
     const decoded = jwt.verify(token, process.env.SECRET_KEY); 
-    // console.log(decoded)
     req.user = decoded
     req.verifier = decoded
     next();              

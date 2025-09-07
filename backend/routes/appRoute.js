@@ -64,8 +64,13 @@ router.post('/user-login', async (req,res) => {
       process.env.SECRET_KEY,
       {expiresIn: "1h"}
     )
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None"
+    })
    
-    res.json({message: "Login successful", token})
+    res.json({message: "Login successful"})
 
   } catch (error) {
     res.status(404).json({message: error.message})
@@ -180,7 +185,7 @@ router.get('/verifier-dashboard', auth, async(req,res) => {
 
 router.post("/verify-signature", async (req, res) => {
   try {
-    console.log("Received body:", req.body); // <--- Add this
+    // console.log("Received body:", req.body); 
 
     const { credential, signature, publicKey } = req.body;
     if (!credential || !signature || !publicKey) {
