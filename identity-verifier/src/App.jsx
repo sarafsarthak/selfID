@@ -8,6 +8,8 @@ import LoginVerifier from './Pages/LoginVerifier'
 import UserdashBoard from './Pages/UserdashBoard'
 import VerifierDashboard from './Pages/VerifierdashBoard'
 import Navbar from './Pages/Navbar'
+import About from './Pages/About'
+import Features from './Pages/Features'
 
 
 const App = () => {
@@ -16,7 +18,8 @@ const App = () => {
     <Navbar />
     <Routes>
       <Route path= '/' element={<Home />} />
-
+      <Route path = '/about' element = {<About />} />
+      <Route path = '/features' element = {<Features />} />
       <Route path='/register-user' element={<RegisterUser />} />  
       <Route path= '/register-verifier' element={<RegisterVerifier />} />
       <Route path = '/user-login' element= {<LoginUser />} />
